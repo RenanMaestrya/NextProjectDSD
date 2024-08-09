@@ -5,11 +5,12 @@ export function MovieCard({
   title,
   poster_path,
   vote_average,
+  id,
 }: MovieCardProps) {
   const imgPath = "https://image.tmdb.org/t/p/w500";
   return (
     <div className="bg-background rounded-lg overflow-hidden shadow-lg">
-      <Link href="#" className="block" prefetch={false}>
+      <Link href={`/${id}`} className="block" prefetch={false}>
         <Image
           src={`${imgPath}${poster_path}`}
           alt="Movie Poster"

@@ -10,9 +10,12 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { fetchMoviesByTitle, fetchTopRatedMovies } from "@/lib/fetch";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
+  const router = useRouter();
+
   const [movies, setMovies] = useState<MovieCardProps[]>([]);
   const [searchTitle, setSearchTitle] = useState("");
   const [page, setPage] = useState(1);
@@ -50,6 +53,10 @@ export default function Home() {
     else fetchTopRated(page - 1);
   }
 
+  const handleMovieClick = (id: number) => {
+    router.push(`/movies/${id}`);
+  };
+
   useEffect(() => {
     fetchTopRated(1);
   }, []);
@@ -81,7 +88,9 @@ export default function Home() {
             poster_path={movie.poster_path}
             key={movie.id}
             vote_average={movie.vote_average}
-            // onClick={() => {}}
+            onMovieClick={() => {
+              handleMovieClick(movie.id);
+            }}
           />
         ))}
       </div>

@@ -6,6 +6,7 @@ interface RootObject {
 }
 
 interface MovieCardProps {
+  onMovieClick?: () => void;
   adult?: boolean;
   backdrop_path?: string;
   genre_ids?: number[];
