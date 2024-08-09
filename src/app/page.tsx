@@ -2,20 +2,14 @@
 import { IconProps, MovieCard } from "@/components/MovieCard";
 import { Input } from "@/components/ui/input";
 import {
-  Pagination,
-  PaginationContent,
   PaginationEllipsis,
-  PaginationItem,
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { fetchMoviesByTitle, fetchTopRatedMovies } from "@/lib/fetch";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const router = useRouter();
-
   const [movies, setMovies] = useState<MovieCardProps[]>([]);
   const [searchTitle, setSearchTitle] = useState("");
   const [page, setPage] = useState(1);
@@ -53,10 +47,6 @@ export default function Home() {
     else fetchTopRated(page - 1);
   }
 
-  const handleMovieClick = (id: number) => {
-    router.push(`/movies/${id}`);
-  };
-
   useEffect(() => {
     fetchTopRated(1);
   }, []);
@@ -88,32 +78,15 @@ export default function Home() {
             poster_path={movie.poster_path}
             key={movie.id}
             vote_average={movie.vote_average}
-            onMovieClick={() => {
-              handleMovieClick(movie.id);
-            }}
           />
         ))}
       </div>
-      <div className="mt-8 flex justify-center">
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious onClick={handlePreviousPage} />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationItem>{page}</PaginationItem>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationItem>{totalPages}</PaginationItem>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext onClick={handleNextPage} />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+      <div className="mt-8 flex justify-center items-center gap-4">
+        <PaginationPrevious onClick={handlePreviousPage} />
+        <span>{page}</span>
+        <PaginationEllipsis />
+        <span>{totalPages}</span>
+        <PaginationNext onClick={handleNextPage} />
       </div>
     </div>
   );

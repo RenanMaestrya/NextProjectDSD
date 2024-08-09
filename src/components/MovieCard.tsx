@@ -17,7 +17,8 @@ export function MovieCard({
           width={300}
           height={450}
           className="w-full h-[450px] object-cover"
-          style={{ aspectRatio: "300/450", objectFit: "cover" }}
+          style={{ width: "auto", height: "auto", aspectRatio: "2/3" }}
+          priority={true}
         />
       </Link>
       <div className="p-4">

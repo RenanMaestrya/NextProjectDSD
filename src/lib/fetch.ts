@@ -29,12 +29,13 @@ export async function fetchMoviesByTitle(title: string, page: number) {
 export async function fetchMovieById(id: string) {
   try {
     const res = await fetch(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=b355159e8ac072215bde27f212189560`
+      `https://api.themoviedb.org/3/movie${id}?api_key=b355159e8ac072215bde27f212189560`
     );
     const data = await res.json();
+
     return data;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
-    return null;
+    return { success: false, message: error.message };
   }
 }
